@@ -427,7 +427,7 @@ public class GolgiBlowFish  implements GolgiCrypto.Impl {
     //
     
     @Override
-    public String encrypt(String dst, String payload) throws GolgiCrypto.EncryptSoftException {
+    public String encrypt(String dst, String payload) throws GolgiCrypto.EncryptSoftException,GolgiCrypto.EncryptHardException  {
         //        // Symmetric encryption, we don't really care about the dst
         //
         
