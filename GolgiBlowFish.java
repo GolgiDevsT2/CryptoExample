@@ -443,7 +443,7 @@ public class GolgiBlowFish  implements GolgiCrypto.Impl {
                 
             }
             catch (UnsupportedEncodingException e) {
-		throw new GolgiCrypto.EncryptException("No UTF-8 in JVM");
+		throw new GolgiCrypto.EncryptHardException("No UTF-8 in JVM");
             }
             int extra = BLOCK_SIZE - (pBytes.length % BLOCK_SIZE);
             if(extra != 0){
