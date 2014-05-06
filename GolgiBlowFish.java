@@ -3,7 +3,10 @@ package com.openmindnetworks.golgi.tests;
 import java.io.UnsupportedEncodingException;
 
 import com.openmindnetworks.golgi.api.GolgiAPI;
-import com.openmindnetworks.golgi.api.GolgiCrypto.*;
+import com.openmindnetworks.golgi.api.GolgiCrypto.impl;
+import com.openmindnetworks.golgi.api.GolgiCrypto.EncryptHardException;
+import com.openmindnetworks.golgi.api.GolgiCrypto.EncryptSoftException;
+import com.openmindnetworks.golgi.api.GolgiCrypto.DecryptException;
 
 /*
  This file was shamelessly taken from the Bouncy Castle Crypto package.
