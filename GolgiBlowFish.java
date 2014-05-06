@@ -510,7 +510,7 @@ public class GolgiBlowFish  implements GolgiCrypto.Impl {
         }
     }
         
-    public static GolgiCryptoImpl createUsingKey(String key){
+    public static GolgiCrypto.Impl createUsingKey(String key){
         GolgiBlowFish inst = new GolgiBlowFish();
         if(inst.initWithKey(key) == null){
             return inst;
