@@ -427,9 +427,8 @@ public class GolgiBlowFish  implements GolgiCrypto.Impl {
     //
     
     @Override
-    public String encrypt(String dst, String payload){
-        //
-        // Symmetric encryption, we don't really care about the dst
+    public String encrypt(String dst, String payload) throws GolgiCrypto.EncryptSoftException {
+        //        // Symmetric encryption, we don't really care about the dst
         //
         
         if(payload.length() == 0){
@@ -469,7 +468,7 @@ public class GolgiBlowFish  implements GolgiCrypto.Impl {
     }
 
     @Override
-    public String decrypt(String src, String payload) {
+    public String decrypt(String src, String payload) throws GolgiCrypto.DecryptException{
         //
         // Payload should be a long string of hex digits
         // preceded by a single digit indicating the number
