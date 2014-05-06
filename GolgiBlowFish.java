@@ -3,7 +3,7 @@ package com.openmindnetworks.golgi.tests;
 import java.io.UnsupportedEncodingException;
 
 import com.openmindnetworks.golgi.api.GolgiAPI;
-import com.openmindnetworks.golgi.api.GolgiCryptoImpl;
+import com.openmindnetworks.golgi.api.GolgiCrypto.*;
 
 /*
  This file was shamelessly taken from the Bouncy Castle Crypto package.
@@ -39,7 +39,7 @@ import com.openmindnetworks.golgi.api.GolgiCryptoImpl;
  * @author See comments in the source file
  * @version 2.50, 03/15/10
  */
-public class GolgiBlowFish  implements GolgiCryptoImpl {
+public class GolgiBlowFish  implements GolgiCrypto.Impl {
     private final static int[] KP = { 0x243F6A88, 0x85A308D3, 0x13198A2E, 0x03707344, 0xA4093822, 0x299F31D0,
             0x082EFA98, 0xEC4E6C89, 0x452821E6, 0x38D01377, 0xBE5466CF, 0x34E90C6C, 0xC0AC29B7, 0xC97C50DD, 0x3F84D5B5,
             0xB5470917, 0x9216D5D9, 0x8979FB1B },
@@ -427,13 +427,13 @@ public class GolgiBlowFish  implements GolgiCryptoImpl {
     //
     
     @Override
-    public String encrypt(String dst, String payload) {
+    public String encrypt(String dst, String payload){
         //
         // Symmetric encryption, we don't really care about the dst
         //
         
         if(payload.length() == 0){
-            return null;
+	    throw new EncryptSoftException("Empty payload");
         }
         else{
             byte[] pBytes;
@@ -482,7 +482,7 @@ public class GolgiBlowFish  implements GolgiCryptoImpl {
             extra = Integer.valueOf(payload.substring(0, 1));
         }
         catch(NumberFormatException nfe){
-            return null;
+	    throw new DecryptException("Padding Character Malformed");
         }
         payload = payload.substring(1);
         byte[] cBytes = new byte[payload.length() / 2];
@@ -491,7 +491,7 @@ public class GolgiBlowFish  implements GolgiCryptoImpl {
             nHi = hexToNibble[(int)(payload.charAt(i)) & 0xff];
             nLo = hexToNibble[(int)(payload.charAt(i+1)) & 0xff];
             if(nHi < 0 || nLo < 0){
-                return null;
+		throw new DecryptException("Garbage in payload");
             }
             cBytes[j++] = (byte)(((nHi << 4) | nLo) & 0xff);
         }
@@ -503,7 +503,7 @@ public class GolgiBlowFish  implements GolgiCryptoImpl {
             return new String(pBytes, 0, pBytes.length - extra, "UTF-8");
         }
         catch(UnsupportedEncodingException e){
-            return null;
+	    throw new DecryptException("No UTF-8 in JVM");
         }
     }
         
