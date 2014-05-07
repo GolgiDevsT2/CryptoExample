@@ -701,7 +701,7 @@ static void intsToBytes(unsigned char *dst, int l, int r)
     }
     else{
 	*isSoftPtr = true;
-	errPtr = "Empty Payload";
+	errPtr = @"Empty Payload";
 	payload = nil;
     }
     return payload;
