@@ -669,7 +669,7 @@ static void intsToBytes(unsigned char *dst, int l, int r)
     return dstData;
 }
 
-- (NSString *)encryptGolgiPayload:(NSString *)payload forDst:(NSString *)dst
+- (NSString *)encryptGolgiPayload:(NSString *)payload forDst:(NSString *)dst withErrPtr:(NSString **)errPtr andIsSoftPtr:(BOOL *)isSoftPtr
 {
     const char *c1 = [payload UTF8String];
 
@@ -696,6 +696,11 @@ static void intsToBytes(unsigned char *dst, int l, int r)
 	*dst++ = 0;
 	payload = [[NSString alloc] initWithUTF8String: cipherTxt];
 	free(cipherTxt);
+    }
+    else{
+	*isSoftPtr = true;
+	errPtr = "Empty Payload";
+	payload = nil;
     }
     return payload;
 }
