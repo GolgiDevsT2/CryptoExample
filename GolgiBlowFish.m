@@ -700,7 +700,7 @@ static void intsToBytes(unsigned char *dst, int l, int r)
     return payload;
 }
 
-- (NSString *)decryptGolgiPayload:(NSString *)payload fromSrc:(NSString *)src
+- (NSString *)decryptGolgiPayload:(NSString *)payload fromSrc:(NSString *)src withErrPtr:(NSString **)errPtr
 {
     const char *c1 = [payload UTF8String];
 
@@ -715,10 +715,12 @@ static void intsToBytes(unsigned char *dst, int l, int r)
 	    int nHi, nLo;
 
 	    if((nHi = hexToNibble[(*c1) & 0xff]) < 0){
+		*errPtr = @"Garbled Crypto Payload";
 		return nil;
 	    }
 	    c1++;
 	    if((nLo = hexToNibble[(*c1) & 0xff]) < 0){
+		*errPtr = @"Garbled Crypto Payload";
 		return nil;
 	    }
 	    c1++;
