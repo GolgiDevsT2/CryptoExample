@@ -673,6 +673,8 @@ static void intsToBytes(unsigned char *dst, int l, int r)
 {
     const char *c1 = [payload UTF8String];
 
+    *errPtr = nil;
+
     if(*c1 != 0){
 	int len = strlen(c1);
 	int extra = len % BLK_SIZE;
@@ -708,6 +710,8 @@ static void intsToBytes(unsigned char *dst, int l, int r)
 - (NSString *)decryptGolgiPayload:(NSString *)payload fromSrc:(NSString *)src withErrPtr:(NSString **)errPtr
 {
     const char *c1 = [payload UTF8String];
+
+    *errPtr = nil;
 
     if(*c1 != 0){
 	int extra = *c1++ - '0';
